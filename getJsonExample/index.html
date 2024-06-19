@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Westcliff Fullstack Bootcamp jQuery Ajax Example</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+         $(document).ready(function() {
+            $("#btn").click(function(event){
+               console.log("Button clicked"); 
+
+               
+               $('#showinfo').remove();
+               console.log("Removed existing showinfo div if any"); 
+               
+               $('body').append('<div id="showinfo"></div>');
+               console.log("Appended showinfo div to body"); 
+
+            
+               $('#showinfo').append('<p id="name">NAME: </p>');
+               $('#showinfo').append('<p id="age">AGE: </p>');
+               $('#showinfo').append('<p id="sex">SEX: </p>');
+               console.log("Appended paragraph elements"); 
+            
+               // Load data from json file to each paragraph
+               $.getJSON('jq/result.json', function(jqdata) {
+                  console.log("JSON data loaded:", jqdata); 
+                  $('#name').append(jqdata.name);
+                  $('#age').append(jqdata.age);
+                  $('#sex').append(jqdata.sex);
+                  console.log("Appended JSON data to paragraphs"); 
+               }).fail(function() {
+                  console.error("An error occurred while loading the JSON file."); 
+               });
+            });
+         });
+      </script>
+      <style>
+         #showinfo {
+            background-color: #eee;
+            padding: 10px;
+            margin-top: 10px;
+            width: 200px;
+         }
+      </style>
+   </head>
+	
+   <body>
+      <p>Click button to load result.json file</p>
+      <input type="button" id="btn" value="Load Data" />
+   </body>
+</html>
